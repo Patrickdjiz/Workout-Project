@@ -1,6 +1,7 @@
 require('dotenv').config() // require the dotenv package so we can use the process object to access our .env file with our hidden variables
 
 const express = require('express') // requiring the express package to be used in the code
+const workoutRoutes = require('./routes/workouts') // imports the routes from our workouts.js file 
 
 const app = express() // express app being stored in app constant
 
@@ -11,14 +12,8 @@ app.use((req, res, next) => {
     next()
 })
 
-//------- routes ------//
-// '/' is local host port 5000/ so the room domain
-// req is the request object which has information about the request
-// res is the response object that sends a response back to the user
-app.get('/', (req, res) => { 
-    res.json({mssg: 'Welcome to the app'}) // sends back a json string
-})
-
+// uses the routes we imported on the app
+app.use('/api/workouts', workoutRoutes) // when a request is fired to the /api/workouts path then we invoke any route. This path is just a normal '/' inside the workouts.js file
 
 // listen for requests
 app.listen(process.env.PORT, () => {
