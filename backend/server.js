@@ -5,8 +5,12 @@ const workoutRoutes = require('./routes/workouts') // imports the routes from ou
 
 const app = express() // express app being stored in app constant
 
-// middleware (any code that executes between us getting a request on the server and us sending a response)
+//----------- middleware (any code that executes between us getting a request on the server and us sending a response) ------//
 // the next object has to run in the middleware in order to move on to the next piece of middleware
+
+// any request that comes in, the express.json() function looks if it has any body/data to the request and if it does, it passes it to the req object so we can access it
+app.use(express.json()) 
+
 app.use((req, res, next) => {
     console.log(req.path, req.method) // this is logging the path from where the reqest is coming from and what method it is using e.g GET, POST, DELETE
     next()
