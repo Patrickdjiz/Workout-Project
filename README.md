@@ -10,3 +10,4 @@ npm install mongoose (mongoose wraps mongoDB to be able to use methods to read a
 Commands:
 nodemon server.js (starts the server and updates changes live)
 npm run dev (same as nodemon server.js but uses the dev script from package.json)
+npx create-react-app frontend
