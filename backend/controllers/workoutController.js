@@ -47,12 +47,47 @@ const createWorkout = async (req, res) => {
 }
 
 // Delete a workout
+const deleteWorkout = async(req, res) => {
+    const {id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) { // this method checks if the id is not a valid id type e.g Strings
+        return res.status(404).json({error: 'No such workout'})
+    }
+
+    const workout = await Workout.findOneAndDelete({_id: id}) // this deletes the workout based on id
+
+    if(!workout) { // this method checks if the id is not found
+        return res.status(404).json({error: 'No such workout'})
+    }
+
+    res.status(200).json(workout) // sends the workout we just deleted
+}
 
 // Update a workout
+const updateWorkout = async(req, res) => {
+    const {id} = req.params
 
+    if(!mongoose.Types.ObjectId.isValid(id)) { // this method checks if the id is not a valid id type e.g Strings
+        return res.status(404).json({error: 'No such workout'})
+    }
+
+    const workout = await Workout.findOneAndUpdate({_id: id}, {
+        // the properties we want to update for the workout are in the req object and the req.body looks for the properties. 
+        // The ... spreads the object properties into the object we identified with the id
+        ...req.body
+    })
+
+    if(!workout) { // this method checks if the id is not found
+        return res.status(404).json({error: 'No such workout'})
+    }
+
+    res.status(200).json(workout)
+}
 
 module.exports = {
     getWorkouts,
     getWorkout,
-    createWorkout
+    createWorkout,
+    deleteWorkout,
+    updateWorkout
 }

@@ -2,7 +2,9 @@ const express = require('express')
 const {
     getWorkouts,
     getWorkout,
-    createWorkout
+    createWorkout,
+    deleteWorkout,
+    updateWorkout
 
 } = require('../controllers/workoutController') // importing the functions from the workoutController so we can mount the routes
 
@@ -17,17 +19,13 @@ router.get('/', getWorkouts)
 // GET a single workout using function from controller
 router.get('/:id', getWorkout) // id of what we want to specifically get
 
-// POST a new workout using function from controller. So when a post request is given, it fires this function and passes the data to the req object in the function
+// POST a new workout using function from controller
 router.post('/', createWorkout)
 
-// DELETE a workout
-router.delete('/:id', (req, res) => { // id of what we want to specifically delete
-    res.json({mssg: 'DELETE a workout'})
-})
+// DELETE a workout using function from controller
+router.delete('/:id', deleteWorkout) // id of what we want to specifically delete
 
-// UPDATE a new workout
-router.patch('/:id', (req, res) => {
-    res.json({mssg: 'UPDATE a workout'})
-})
+// UPDATE a new workout using function from controller
+router.patch('/:id', updateWorkout)
 
 module.exports = router // exports the routers so it can be used in the server.js file
