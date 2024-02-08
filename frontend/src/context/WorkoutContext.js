@@ -16,6 +16,11 @@ export const workoutsReducer = (state, action) => { // the state is going to be 
                 // state has all the previous workouts in an array and we are spreading it and then adding the new workoout from the payload in the dispatch function to the top of that array
                 workouts: [action.payload, ...state.workouts] 
             }
+        case 'DELETE_WORKOUT':
+            return {
+                // the filter goes through each workout in the state and checks the passed in id against all id's and if the id is not equal to an id, it keeps it in the array
+                workouts: state.workouts.filter((w) => w._id !== action.payload._id)
+            }
         default:
             return state
     }
