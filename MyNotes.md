@@ -13,3 +13,4 @@ npm install date-fns (this is to format dates)
 Commands:
 nodemon server.js (starts the server and updates changes live)
 npm run dev (same as nodemon server.js but uses the dev script from package.json)
+npm start (frontend)
