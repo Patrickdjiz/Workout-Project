@@ -20,7 +20,7 @@ const WorkoutDetails = ({workout}) => {
         }
     }
     
-    // we imported the material symbols outlined from google apis in the index.html file
+    // we imported the material symbols outlined from google apis in the index.html 
     return (
         <div className="workout-details">
         <h4>{workout.title}</h4>

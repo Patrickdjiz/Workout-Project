@@ -9,6 +9,7 @@ const WorkoutForm = () => {
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
     const [error, setError] = useState(null)
+    const[emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault() // normally on form submissions the page is refreshed so we are preventing that from happening
@@ -26,6 +27,7 @@ const WorkoutForm = () => {
 
         if(!response.ok) { 
             setError(json.error) // if the response was not okay then our json will return the error property 
+            setEmptyFields(json.emptyFields) // we are taking whatever emptyFields we are taking from our backend
         }
         if(response.ok) {
             // setting the properties back to nothing
@@ -33,6 +35,7 @@ const WorkoutForm = () => {
             setLoad('')
             setReps('')
             setError(null)
+            setEmptyFields([]) // setting the emptyFields back to an empty array
             console.log('new workout added', json)
             dispatch({type: 'CREATE_WORKOUT', payload: json}) // the json variable holds the workout so we are sending that back as our payload when we create a workout
         }
@@ -47,6 +50,7 @@ const WorkoutForm = () => {
                 type="text"
                 onChange={(e) => setTitle(e.target.value)} // we have the event e when someone types into the form and that sets the title to that 
                 value={title} // this ensures that if we change the title back to nothing to reset the form, that change will be reflected in here
+                className={emptyFields.includes('title') ? 'error' : ''} // if the title is in the emptyFields then we send back an error string but if it isn't we send back nothing
             /> 
 
             <label>Load (Kg):</label>
@@ -54,6 +58,7 @@ const WorkoutForm = () => {
                 type="number"
                 onChange={(e) => setLoad(e.target.value)}
                 value={load}
+                className={emptyFields.includes('load') ? 'error' : ''}
             />
 
             <label>Reps:</label>
@@ -61,6 +66,7 @@ const WorkoutForm = () => {
                 type="number"
                 onChange={(e) => setReps(e.target.value)}
                 value={reps}
+                className={emptyFields.includes('reps') ? 'error' : ''}
             />
 
             <button>Add Workout</button> 
