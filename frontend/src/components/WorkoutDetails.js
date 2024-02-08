@@ -1,5 +1,8 @@
 // this file is for showing the workouts on the home page and also deleting a workout
 
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 import React from 'react'; // importing react
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
@@ -17,13 +20,14 @@ const WorkoutDetails = ({workout}) => {
         }
     }
     
+    // we imported the material symbols outlined from google apis in the index.html file
     return (
         <div className="workout-details">
         <h4>{workout.title}</h4>
         <p><strong>Load (kg): </strong>{workout.load}</p>
         <p><strong>Reps: </strong>{workout.reps}</p>
-        <p>{workout.createdAt}</p>
-        <span onClick={handleClick}>delete</span>
+        <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
+        <span className="material-symbols-outlined" onClick={handleClick}>delete</span> 
         </div>
     )
 }

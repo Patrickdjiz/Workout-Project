@@ -24,7 +24,8 @@ const Home = () => {
         }
 
         fetchWorkouts()
-    }, []) // we have an empty array as the second argument so that when all the componenets render it only renders once
+    }, [dispatch]) 
+    // we put dispatch as a second argument so that whenever the dispatch changes then its going to rerun the useEffect function. This won't happen to use but we get rid of the error
 
     return (
         <div className="home">
