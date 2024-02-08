@@ -37,6 +37,22 @@ const getWorkout = async (req, res) => {
 const createWorkout = async (req, res) => {
     const {title, load, reps} = req.body // we are making the body of our request be limited to title, load, reps. So that when data is sent through the req object, it only takes those
 
+    /* error handling */
+    let emptyFields = [] // if a user is creating a workout and they leave empty fields we will track that
+
+    if(!title) {
+        emptyFields.push('title')
+    }
+    if(!load) {
+        emptyFields.push('load')
+    }
+    if(!reps) {
+        emptyFields.push('reps')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all fields', emptyFields})
+    }
+
     // adds document to database
     try {
         const workout = await Workout.create({title, load, reps}) // we are creating a Workout from our model and then storing it into the workout constant
